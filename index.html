@@ -1,0 +1,31 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/2d223d12f7.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Statistical Concepts</title>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <form onsubmit="drawBalls(event)">
+                <div id="score">Score: <span id="currentScore"></span></div>
+                <label for="inputNumbers">Input Numbers:</label>
+                <input type="text" id="inputNumbers" placeholder="Enter numbers">
+                <button type="submit" id="drawButton"><i class="fas fa-dice"></i> Draw Balls</button>
+            </form>
+            <button onclick="resetCounters()"><i class="fas fa-redo"></i> Reset Counters</button>
+            <div id="ballCounter">
+                <span class="blue"><i class="fas fa-circle blue"></i> Blue Balls: 0</span>
+                <span class="red"><i class="fas fa-circle red"></i> Red Balls: 0</span>
+            </div>
+            <button onclick="revealMissingBalls()"><i class="fas fa-eye"></i> Reveal Missing Balls</button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-TMwUEIQdAgKByDFok5ZY5Lg5g0sPPeWcgzAr0I00oe0WT8E9eR6w5uAR1i1FLqbyUif0kg6hCwuG/PRpW4dfww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html>
