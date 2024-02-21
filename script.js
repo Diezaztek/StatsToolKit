@@ -12,7 +12,7 @@ var originalBlueCount = blueCount;
 var redCount = Math.floor(Math.random() * (maxBalls - minBalls + 1)) + minBalls;
 var redTakenOut = 0;
 var originalRedCount = redCount;
-var score = Math.floor(Math.random() * 100); + minInitialScore // Initialize score with a random number
+var score = 0; 
 
 
 resetCounters();
