@@ -1,10 +1,19 @@
 // script.js
-const maxBlueBalls = 100 + Math.floor(Math.random() * 100); // Maximum limit for blue balls
-const maxRedBalls = 100 + Math.floor(Math.random() * 100);  // Maximum limit for red balls
+const minInitialBalls = 0;
+const minInitialScore = 0;
+const scoreDecrease = 0;
+const costIncrease = 1;
+const maxBalls = 1000;
+const minBalls = 1;
 
-let blueCount = 0;
-let redCount = 0;
-let score = 1000; // Math.floor(Math.random() * 1000); // Initialize score with a random number
+var blueCount = Math.floor(Math.random() * (maxBalls - minBalls + 1)) + minBalls;
+var blueTakenOut = 0;
+var originalBlueCount = blueCount;
+var redCount = Math.floor(Math.random() * (maxBalls - minBalls + 1)) + minBalls;
+var redTakenOut = 0;
+var originalRedCount = redCount;
+var score = Math.floor(Math.random() * 100); + minInitialScore // Initialize score with a random number
+
 
 resetCounters();
 
@@ -21,18 +30,30 @@ function drawBalls(event) {
 
             if (!isNaN(ballCount) && ballCount > 0) {
                 for (let i = 0; i < ballCount; i++) {
-                    
-                    if (blueCount < maxBlueBalls && redCount < maxRedBalls) {
-                        const color = Math.random() < 0.5 ? 'blue' : 'red';
+                    if (blueTakenOut < blueCount && redTakenOut < redCount) {
+                        if(score - scoreDecrease >= 0) {
+                            const color = Math.random() < 0.5 ? 'blue' : 'red';
 
-                        if (color === 'blue') {
-                            blueCount++;
+                            if (color === 'blue') {
+                                blueTakenOut++;
+                            } else {
+                                redTakenOut++;
+                            }
+
+                            score += costIncrease
                         } else {
-                            redCount++;
+                            alert('Minimum score reached!');
+                            break;
                         }
-                        // Decrement score by 10
-                        score -= 10;
-                    } else {
+                    } else if(blueTakenOut == blueCount && redTakenOut < redCount) {
+                        redTakenOut++;
+                        score += costIncrease
+
+                    } else if(redTakenOut == redCount && blueTakenOut < blueCount) {
+                        blueTakenOut++;
+                        score += costIncrease
+                    }  
+                    else {
                         alert('Maximum limit for blue and red balls reached!');
                         break;
                     }
@@ -51,11 +72,15 @@ function drawBalls(event) {
 }
 
 function resetCounters() {
-    blueCount = 0;
-    redCount = 0;
+    blueCount = Math.floor(Math.random() * (maxBalls - minBalls + 1)) + minBalls;
+    redCount = Math.floor(Math.random() * (maxBalls - minBalls + 1)) + minBalls;
+    originalBlueCount = blueCount;
+    originalRedCount = redCount;
+    redTakenOut = 0;
+    blueTakenOut = 0;
 
     // Update score to a new random number on reset
-    score = 1000;
+    score = 0
 
     // Update score on the UI
     updateScoreUI(score);
@@ -64,18 +89,44 @@ function resetCounters() {
 }
 
 function revealMissingBalls() {
-    const remainingBlueBalls = maxBlueBalls - blueCount;
-    const remainingRedBalls = maxRedBalls - redCount;
 
-    alert(`Remaining Blue Balls: ${remainingBlueBalls}\nRemaining Red Balls: ${remainingRedBalls}`);
+    alert(`Original Red Balls: ${originalBlueCount}\nOriginal Red Balls: ${originalRedCount}`);
+}
+
+function calculateDifference() {
+    event.preventDefault();
+    const userInput = parseInt(document.getElementById('userInput').value);
+    const expectedProportion = parseInt(document.getElementById('proportion').value);
+    const difference = blueCount - redCount;
+
+    const resultParagraph = document.getElementById('calculationResult');
+
+    if (!isNaN(userInput)) {
+        let x = blueTakenOut
+        let n = redTakenOut + blueTakenOut
+        let p = expectedProportion // Expected proportion
+        let pHat = x / n
+
+        p = ((pHat - p) / Math.sqrt((p * (1 - p)) / (n)))
+        resultParagraph.innerText = `Z: ${p}`;
+
+        if (userInput > difference) {
+            resultParagraph.style.color = 'red';
+        } else {
+            resultParagraph.style.color = 'green';
+        }
+
+    } else {
+        alert('Please enter a valid number.');
+    }
 }
 
 function updateCounterUI() {
     const blueIcon = '<i class="fas fa-circle blue"></i>';
     const redIcon = '<i class="fas fa-circle red"></i>';
 
-    document.querySelector('.blue').innerHTML = `${blueIcon} Blue Balls: ${blueCount}`;
-    document.querySelector('.red').innerHTML = `${redIcon} Red Balls: ${redCount}`;
+    document.querySelector('.blue').innerHTML = `${blueIcon} Blue Balls: ${blueTakenOut}`;
+    document.querySelector('.red').innerHTML = `${redIcon} Red Balls: ${redTakenOut}`;
 }
 
 function updateScoreUI(currentScore) {
