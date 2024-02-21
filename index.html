@@ -12,7 +12,7 @@
     <div class="container">
         <div class="box">
             <form onsubmit="drawBalls(event)">
-                <div id="score">Score: <span id="currentScore"></span></div>
+                <div id="score">Cost: <span id="currentScore"></span></div>
                 <label for="inputNumbers">Input Numbers:</label>
                 <input type="text" id="inputNumbers" placeholder="Enter numbers">
                 <button type="submit" id="drawButton"><i class="fas fa-dice"></i> Draw Balls</button>
@@ -22,10 +22,39 @@
                 <span class="blue"><i class="fas fa-circle blue"></i> Blue Balls: 0</span>
                 <span class="red"><i class="fas fa-circle red"></i> Red Balls: 0</span>
             </div>
-            <button onclick="revealMissingBalls()"><i class="fas fa-eye"></i> Reveal Missing Balls</button>
+            <button onclick="revealMissingBalls()"><i class="fas fa-eye"></i> Reveal Original Balls</button>
         </div>
+        <br>
+        <!--
+            <div class="box" id="calculationDiv">
+            <form>
+                <label for="proportion">Expected proportion</label>
+                <input type="text" id="proportion" placeholder="0.5">
+            </form>
+
+            <form>
+                <label for="h0">H0:</label>
+                <input type="text" id="h0" placeholder="H0">
+            </form>
+
+            <form>
+                <label for="h1">H1:</label>
+                <input type="text" id="h1" placeholder="H1">
+            </form>
+            
+            <form>
+                <label for="userInput">Confidence:</label>
+                <input type="number" id="userInput" placeholder="Enter a number" value="0.05">
+                <button onclick="calculateDifference()"><i class="fas fa-calculator"></i> Calculate Z</button>
+                <p id="calculationResult"></p>
+            </form>
+            </div>
+        -->
+        
+            
+            
+        
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-TMwUEIQdAgKByDFok5ZY5Lg5g0sPPeWcgzAr0I00oe0WT8E9eR6w5uAR1i1FLqbyUif0kg6hCwuG/PRpW4dfww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="script.js"></script>
 </body>
 </html>
